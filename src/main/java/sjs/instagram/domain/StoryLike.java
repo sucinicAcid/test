@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
+@Table(name = "STORY_LIKE")
 @Getter
 public class StoryLike {
     @Id
