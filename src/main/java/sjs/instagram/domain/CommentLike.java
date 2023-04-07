@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
-@Table(name = "COMMNET_LIKE")
+@Table(name = "COMMENT_LIKE")
 @Getter
 public class CommentLike {
     @Id
@@ -19,4 +19,20 @@ public class CommentLike {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+
+
+    public void setComment(Comment comment) {
+        if (this.comment != null) {
+            this.comment.getCommentLikes().remove(this);
+        }
+        this.comment = comment;
+        if (!comment.getCommentLikes().contains(this)) {
+            comment.addCommentLike(this);
+        }
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

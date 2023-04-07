@@ -26,4 +26,37 @@ public class Post {
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private List<PostLike> postLikes;
+
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setUser(User user) {
+        if (this.user != null) {
+            this.user.getPosts().remove(this);
+        }
+        this.user = user;
+        if (!user.getPosts().contains(this)) {
+            user.addPost(this);
+        }
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        if (comment.getPost() != this) comment.setPost(this);
+    }
+
+    public void addPostLike(PostLike postLike) {
+        this.postLikes.add(postLike);
+        if (postLike.getPost() != this) postLike.setPost(this);
+    }
 }

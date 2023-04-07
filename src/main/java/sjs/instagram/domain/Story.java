@@ -23,5 +23,27 @@ public class Story {
     private User author;
 
     @OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
-    private List<StoryViewer> viewers = new ArrayList<>();
+    private List<StoryViewer> storyViewers = new ArrayList<>();
+
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setAuthor(User author) {
+        if (this.author != null) {
+            this.author.getStories().remove(this);
+        }
+        this.author = author;
+        if (!author.getStories().contains(this)) {
+            author.addStory(this);
+        }
+    }
+
+    public void addStoryViewer(StoryViewer storyViewer) {
+        this.getStoryViewers().add(storyViewer);
+        if (storyViewer.getStory() != this) {
+            storyViewer.setStory(this);
+        }
+    }
 }

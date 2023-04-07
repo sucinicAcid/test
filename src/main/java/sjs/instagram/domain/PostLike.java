@@ -19,4 +19,19 @@ public class PostLike {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+
+    public void setPost(Post post) {
+        if (this.post != null) {
+            this.post.getPostLikes().remove(this);
+        }
+        this.post = post;
+        if (!post.getPostLikes().contains(this)) {
+            post.addPostLike(this);
+        }
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
