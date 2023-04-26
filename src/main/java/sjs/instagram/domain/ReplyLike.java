@@ -15,11 +15,11 @@ public class ReplyLike {
     @Column(name = "REPLY_LIKE_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "REPLY_ID")
     private Reply reply;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
 

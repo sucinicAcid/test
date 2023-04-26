@@ -21,11 +21,11 @@ public class Story {
     @Column(name = "PHOTO")
     private String photo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AUTHOR")
     private User author;
 
-    @OneToMany(mappedBy = "story", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
     private List<StoryViewer> storyViewers = new ArrayList<>();
 
     public Story(String photo, User author) {

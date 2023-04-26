@@ -14,11 +14,11 @@ public class StoryViewer {
     @Column(name = "STORY_VIEWER_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VIEWER")
     private User viewer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STORY_ID")
     private Story story;
 

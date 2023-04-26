@@ -20,15 +20,15 @@ public class Reply {
     @Column(name = "CONTENT")
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMENT_ID")
     private Comment comment;
 
-    @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL)
     private List<ReplyLike> replyLikes;
 
     public Reply(String content, User user, Comment comment) {

@@ -30,19 +30,19 @@ public class User {
     @Column(name = "INTRODUCTION")
     private String introduction;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy ="fromUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="fromUser", cascade = CascadeType.ALL)
     private List<Follow> followers = new ArrayList<>();
 
-    @OneToMany(mappedBy ="toUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="toUser", cascade = CascadeType.ALL)
     private List<Follow> followings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Story> stories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "viewer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "viewer", cascade = CascadeType.ALL)
     private List<StoryViewer> storyViewers = new ArrayList<>();
 
     public User(String username, String photo, String instagram_id, String introduction) {
