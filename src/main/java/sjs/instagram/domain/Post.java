@@ -1,13 +1,16 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "POST")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,30 +33,29 @@ public class Post {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<PostLike> postLikes;
 
+    public Post(String title, String content, User user) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+
+        user.getPosts().add(this);
+    }
 
 
-    public void setTitle(String title) {
+    public void changeTitle(String title) {
         this.title = title;
     }
 
-    public void setContent(String content) {
+    public void changeContent(String content) {
         this.content = content;
     }
 
-    public void setUser(User user) {
-        if (this.user != null) {
-            this.user.getPosts().remove(this);
-        }
-        this.user = user;
-        if (!user.getPosts().contains(this)) {
-            user.addPost(this);
-        }
-    }
+    // TODO
+    // Comment @builder 생성 시 post는 이미 정해져 있어서 생성자 매개변수에 넣음
+    // post setter는 당연히 필요없음(바뀔 필요가 없음). 그렇다면 post에서 comment를 추가하는 건 어디서 ?
+    // comment 생성 시 post에 comment추가하는 코드 작성해야함
+    // 당연히 연관관계 메소드는 모두 삭제. comment @builder 생성시에 모두 연결하는걸로
 
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
-        if (comment.getPost() != this) comment.setPost(this);
-    }
 
     public void addPostLike(PostLike postLike) {
         this.postLikes.add(postLike);

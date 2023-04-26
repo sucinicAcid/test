@@ -1,11 +1,14 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "FOLLOW")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +23,13 @@ public class Follow {
     @JoinColumn(name = "TO_USER")
     private User toUser;
 
+    public Follow(User fromUser, User toUser) {
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+
+        fromUser.getFollowings().add(this);
+        toUser.getFollowers().add(this);
+    }
 
 
     /**
@@ -41,24 +51,4 @@ public class Follow {
 
     }
     */
-
-    public void setFromUser(User user) {
-        if (this.fromUser != null) {
-            this.fromUser.getFollowings().remove((this));
-        }
-        this.fromUser = user;
-        if (!user.getFollowings().contains(this)) {
-            user.addFollowing(this);
-        }
-    }
-
-    public void setToUser(User user) {
-        if (this.toUser != null) {
-            this.toUser.getFollowers().remove((this));
-        }
-        this.toUser = user;
-        if (!user.getFollowers().contains(this)) {
-            user.addFollower(this);
-        }
-    }
 }

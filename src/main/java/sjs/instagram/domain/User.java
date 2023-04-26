@@ -1,7 +1,9 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,55 +45,26 @@ public class User {
     @OneToMany(mappedBy = "viewer", fetch = FetchType.LAZY)
     private List<StoryViewer> storyViewers = new ArrayList<>();
 
-
-    public void setUsername(String username) {
+    public User(String username, String photo, String instagram_id, String introduction) {
         this.username = username;
-    }
-
-    public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    public void setInstagram_id(String instagram_id) {
         this.instagram_id = instagram_id;
-    }
-
-    public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
 
-    public void addPost(Post post) {
-        this.getPosts().add(post);
-        if (post.getUser() != this) {
-            post.setUser(this);
-        }
+    public void changeUsername(String username) {
+        this.username = username;
     }
 
-    public void addFollower(Follow follow) {
-        this.getFollowers().add(follow);
-        if (follow.getToUser() != this) {
-            follow.setToUser(this);
-        }
+    public void changePhoto(String photo) {
+        this.photo = photo;
     }
 
-    public void addFollowing(Follow follow) {
-        this.getFollowings().add(follow);
-        if (follow.getFromUser() != this) {
-            follow.setFromUser(this);
-        }
+    public void changeInstagram_id(String instagram_id) {
+        this.instagram_id = instagram_id;
     }
 
-    public void addStory(Story story) {
-        this.stories.add(story);
-        if (story.getAuthor() != this) {
-            story.setAuthor(this);
-        }
-    }
-
-    public void addStoryViewer(StoryViewer storyViewer) {
-        this.storyViewers.add(storyViewer);
-        if (storyViewer.getViewer() != this) {
-            storyViewer.setViewer(this);
-        }
+    public void changeIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 }

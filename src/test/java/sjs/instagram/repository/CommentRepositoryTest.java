@@ -17,10 +17,11 @@ import static org.assertj.core.api.Assertions.*;
 class CommentRepositoryTest {
 
     @Autowired CommentRepository commentRepository;
+    static int ACTUAL_COMMENT_COUNT = 3;
 
     @BeforeAll
     static void beforeAll(@Autowired CommentRepository commentRepository) {
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<ACTUAL_COMMENT_COUNT; i++) {
             Comment comment = Comment.builder()
                     .content("content" + i + 1)
                     .post(null)
@@ -44,6 +45,7 @@ class CommentRepositoryTest {
                 .user(null)
                 .build();
         Comment saved = commentRepository.save(comment);
+        ACTUAL_COMMENT_COUNT += 1;
 
         assertThat(saved).isEqualTo(comment);
         
@@ -52,7 +54,7 @@ class CommentRepositoryTest {
         List<Comment> findAll = commentRepository.findAll();
 
         assertThat(find).isEqualTo(saved);
-        assertThat(findAll.size()).isEqualTo(6);
+        assertThat(findAll.size()).isEqualTo(ACTUAL_COMMENT_COUNT);
 
         // Update
         find.setContent("content update");
@@ -62,8 +64,9 @@ class CommentRepositoryTest {
 
         // Delete
         commentRepository.delete(comment);
+        ACTUAL_COMMENT_COUNT -= 1;
 
         long count = commentRepository.count();
-        assertThat(count).isEqualTo(5);
+        assertThat(count).isEqualTo(ACTUAL_COMMENT_COUNT);
     }
 }

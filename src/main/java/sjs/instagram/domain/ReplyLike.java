@@ -1,11 +1,14 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "REPLY_LIKE")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReplyLike {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,19 +23,10 @@ public class ReplyLike {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-
-
-    public void setReply(Reply reply) {
-        if (this.reply != null) {
-            this.reply.getReplyLikes().remove(this);
-        }
+    public ReplyLike(Reply reply, User user) {
         this.reply = reply;
-        if (!reply.getReplyLikes().contains(this)) {
-            reply.addReplyLike(this);
-        }
-    }
-
-    public void setUser(User user) {
         this.user = user;
+
+        reply.getReplyLikes().add(this);
     }
 }

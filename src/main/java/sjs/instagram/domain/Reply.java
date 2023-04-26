@@ -1,13 +1,16 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "REPLY")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,24 +31,12 @@ public class Reply {
     @OneToMany(mappedBy = "reply", fetch = FetchType.LAZY)
     private List<ReplyLike> replyLikes;
 
-
-
-    public void setContent(String content) {
+    public Reply(String content, User user, Comment comment) {
         this.content = content;
-    }
-
-    public void setUser(User user) {
         this.user = user;
-    }
-
-    public void setComment(Comment comment) {
-        if (this.comment != null) {
-            this.comment.getReplies().remove(this);
-        }
         this.comment = comment;
-        if (!comment.getReplies().contains(this)) {
-            comment.addReply(this);
-        }
+
+        comment.getReplies().add(this);
     }
 
     public void addReplyLike(ReplyLike replyLike) {

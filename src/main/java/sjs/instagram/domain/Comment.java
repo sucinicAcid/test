@@ -40,42 +40,11 @@ public class Comment {
      * Comment 생성 시에는 content,user,post가 이미 확정
      * 나머지 필드는 아직 없음
      */
-    @Builder
     public Comment(String content, User user, Post post) {
         this.content = content;
         this.user = user;
         this.post = post;
-    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setPost(Post post) {
-        if (this.post != null) {
-            this.post.getComments().remove(this);
-        }
-        this.post = post;
-        if (!post.getComments().contains(this)) {
-            post.addComment(this);
-        }
-    }
-
-    public void addCommentLike(CommentLike commentLike) {
-        this.commentLikes.add(commentLike);
-        if (commentLike.getComment() != this) {
-            commentLike.setComment(this);
-        }
-    }
-
-    public void addReply(Reply reply) {
-        this.replies.add(reply);
-        if (reply.getComment() != this) {
-            reply.setComment(this);
-        }
+        post.getComments().add(this);
     }
 }

@@ -1,11 +1,14 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "POST_LIKE")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostLike {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,18 +23,10 @@ public class PostLike {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-
-    public void setPost(Post post) {
-        if (this.post != null) {
-            this.post.getPostLikes().remove(this);
-        }
+    public PostLike(Post post, User user) {
         this.post = post;
-        if (!post.getPostLikes().contains(this)) {
-            post.addPostLike(this);
-        }
-    }
-
-    public void setUser(User user) {
         this.user = user;
+
+        post.getPostLikes().add(this);
     }
 }

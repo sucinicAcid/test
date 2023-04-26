@@ -1,11 +1,14 @@
 package sjs.instagram.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "COMMENT_LIKE")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentLike {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,19 +23,10 @@ public class CommentLike {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-
-
-    public void setComment(Comment comment) {
-        if (this.comment != null) {
-            this.comment.getCommentLikes().remove(this);
-        }
+    public CommentLike(Comment comment, User user) {
         this.comment = comment;
-        if (!comment.getCommentLikes().contains(this)) {
-            comment.addCommentLike(this);
-        }
-    }
-
-    public void setUser(User user) {
         this.user = user;
+
+        comment.getCommentLikes().add(this);
     }
 }
