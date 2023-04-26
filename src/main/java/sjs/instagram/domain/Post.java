@@ -55,10 +55,4 @@ public class Post {
     // post setter는 당연히 필요없음(바뀔 필요가 없음). 그렇다면 post에서 comment를 추가하는 건 어디서 ?
     // comment 생성 시 post에 comment추가하는 코드 작성해야함
     // 당연히 연관관계 메소드는 모두 삭제. comment @builder 생성시에 모두 연결하는걸로
-
-
-    public void addPostLike(PostLike postLike) {
-        this.postLikes.add(postLike);
-        if (postLike.getPost() != this) postLike.setPost(this);
-    }
 }
