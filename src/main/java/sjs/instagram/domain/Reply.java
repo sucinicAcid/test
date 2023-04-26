@@ -38,11 +38,4 @@ public class Reply {
 
         comment.getReplies().add(this);
     }
-
-    public void addReplyLike(ReplyLike replyLike) {
-        this.getReplyLikes().add(replyLike);
-        if (replyLike.getReply() != this) {
-            replyLike.setReply(this);
-        }
-    }
 }
