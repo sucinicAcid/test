@@ -28,7 +28,7 @@ public class Reply {
     @JoinColumn(name = "COMMENT_ID")
     private Comment comment;
 
-    @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reply")
     private List<ReplyLike> replyLikes;
 
     public Reply(String content, User user, Comment comment) {

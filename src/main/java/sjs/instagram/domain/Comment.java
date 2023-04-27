@@ -30,10 +30,10 @@ public class Comment {
     @JoinColumn(name = "POST_ID")
     private Post post;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment")
     private List<CommentLike> commentLikes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment")
     private List<Reply> replies = new ArrayList<>();
 
     /**

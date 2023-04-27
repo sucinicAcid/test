@@ -30,7 +30,7 @@ public class User {
     @Column(name = "INTRODUCTION")
     private String introduction;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy ="fromUser", cascade = CascadeType.ALL)
@@ -39,10 +39,10 @@ public class User {
     @OneToMany(mappedBy ="toUser", cascade = CascadeType.ALL)
     private List<Follow> followings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author")
     private List<Story> stories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "viewer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "viewer")
     private List<StoryViewer> storyViewers = new ArrayList<>();
 
     public User(String username, String photo, String instagram_id, String introduction) {

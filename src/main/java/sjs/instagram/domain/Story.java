@@ -25,7 +25,7 @@ public class Story {
     @JoinColumn(name = "AUTHOR")
     private User author;
 
-    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "story")
     private List<StoryViewer> storyViewers = new ArrayList<>();
 
     public Story(String photo, User author) {
