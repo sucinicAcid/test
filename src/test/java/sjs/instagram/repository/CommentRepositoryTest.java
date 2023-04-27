@@ -1,12 +1,13 @@
 package sjs.instagram.repository;
 
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import sjs.instagram.TestDataFactory;
 import sjs.instagram.domain.Comment;
+import sjs.instagram.domain.Post;
+import sjs.instagram.domain.User;
 
 import java.util.List;
 
@@ -16,57 +17,52 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class CommentRepositoryTest {
 
+    @Autowired TestDataFactory testData;
     @Autowired CommentRepository commentRepository;
-    static int ACTUAL_COMMENT_COUNT = 3;
+    @Autowired UserRepository userRepository;
+    @Autowired PostRepository postRepository;
 
-    @BeforeAll
-    static void beforeAll(@Autowired CommentRepository commentRepository) {
-        for (int i=0; i<ACTUAL_COMMENT_COUNT; i++) {
-            Comment comment = Comment.builder()
-                    .content("content" + i + 1)
-                    .post(null)
-                    .user(null)
-                    .build();
-            commentRepository.save(comment);
-        }
-    }
+    @Test
+    void 댓글_생성() {
+        User user = new User("username", "photo", "instagram_id", "introduction");
+        Post post = new Post("title", "content", user);
+        Comment comment = new Comment("content", user, post);
+        userRepository.save(user);
+        postRepository.save(post);
 
-    @AfterAll
-    static void afterAll(@Autowired CommentRepository commentRepository) {
-        commentRepository.deleteAll();
+        Comment saved = commentRepository.save(comment);
+
+        assertThat(saved).isEqualTo(comment);
     }
 
     @Test
-    void basicCRUD() {
-        // Create
-        Comment comment = Comment.builder()
-                .content("content")
-                .post(null)
-                .user(null)
-                .build();
-        Comment saved = commentRepository.save(comment);
-        ACTUAL_COMMENT_COUNT += 1;
+    void 댓글_조회() {
+        Comment comment1 = testData.createComment();
+        Comment comment2 = testData.createComment();
 
-        assertThat(saved).isEqualTo(comment);
-        
-        // Read
-        Comment find = commentRepository.findById(saved.getId()).get();
+        Comment find = commentRepository.findById(comment1.getId()).get();
         List<Comment> findAll = commentRepository.findAll();
 
-        assertThat(find).isEqualTo(saved);
-        assertThat(findAll.size()).isEqualTo(ACTUAL_COMMENT_COUNT);
+        assertThat(find).isEqualTo(comment1);
+        assertThat(findAll.size()).isEqualTo(2);
+    }
 
-        // Update
-        find.setContent("content update");
-        Comment updated = commentRepository.save(find);
+    @Test
+    void 댓글_수정() {
+        Comment comment = testData.createComment();
 
-        assertThat(updated).isEqualTo(find);
+        comment.changeContent("new content");
+        Comment updated = commentRepository.save(comment);
 
-        // Delete
+        assertThat(updated.getContent()).isEqualTo("new content");
+    }
+    @Test
+    void 댓글_삭제() {
+        Comment comment = testData.createComment();
+
         commentRepository.delete(comment);
-        ACTUAL_COMMENT_COUNT -= 1;
 
         long count = commentRepository.count();
-        assertThat(count).isEqualTo(ACTUAL_COMMENT_COUNT);
+        assertThat(count).isEqualTo(0);
     }
 }
