@@ -47,4 +47,8 @@ public class Comment {
 
         post.getComments().add(this);
     }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
 }
