@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import sjs.instagram.TestDataFactory;
 import sjs.instagram.domain.Comment;
+import sjs.instagram.domain.CommentLike;
 import sjs.instagram.domain.Post;
 import sjs.instagram.domain.User;
 
@@ -17,18 +18,14 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class CommentRepositoryTest {
 
-    @Autowired TestDataFactory testData;
+    @Autowired TestDataFactory testDataFactory;
     @Autowired CommentRepository commentRepository;
-    @Autowired UserRepository userRepository;
-    @Autowired PostRepository postRepository;
 
     @Test
     void 댓글_생성() {
-        User user = new User("username", "photo", "instagram_id", "introduction");
-        Post post = new Post("title", "content", user);
+        User user = testDataFactory.createUser();
+        Post post = testDataFactory.createPost();
         Comment comment = new Comment("content", user, post);
-        userRepository.save(user);
-        postRepository.save(post);
 
         Comment saved = commentRepository.save(comment);
 
@@ -37,8 +34,8 @@ class CommentRepositoryTest {
 
     @Test
     void 댓글_조회() {
-        Comment comment1 = testData.createComment();
-        Comment comment2 = testData.createComment();
+        Comment comment1 = testDataFactory.createComment();
+        Comment comment2 = testDataFactory.createComment();
 
         Comment find = commentRepository.findById(comment1.getId()).get();
         List<Comment> findAll = commentRepository.findAll();
@@ -49,7 +46,7 @@ class CommentRepositoryTest {
 
     @Test
     void 댓글_수정() {
-        Comment comment = testData.createComment();
+        Comment comment = testDataFactory.createComment();
 
         comment.changeContent("new content");
         Comment updated = commentRepository.save(comment);
@@ -58,7 +55,7 @@ class CommentRepositoryTest {
     }
     @Test
     void 댓글_삭제() {
-        Comment comment = testData.createComment();
+        Comment comment = testDataFactory.createComment();
 
         commentRepository.delete(comment);
 
