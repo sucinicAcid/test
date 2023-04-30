@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ public class Reply {
     private Comment comment;
 
     @OneToMany(mappedBy = "reply")
-    private List<ReplyLike> replyLikes;
+    private List<ReplyLike> replyLikes = new ArrayList<>();
 
     public Reply(String content, User user, Comment comment) {
         this.content = content;

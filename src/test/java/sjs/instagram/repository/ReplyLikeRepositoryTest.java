@@ -10,6 +10,10 @@ import sjs.instagram.domain.Reply;
 import sjs.instagram.domain.ReplyLike;
 import sjs.instagram.domain.User;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest
 @Transactional
@@ -26,7 +30,7 @@ class ReplyLikeRepositoryTest {
 
         ReplyLike saved = replyLikeRepository.save(replyLike);
 
-        Assertions.assertThat(saved).isEqualTo(replyLike);
+        assertThat(saved).isEqualTo(replyLike);
     }
 
     @Test
@@ -34,11 +38,19 @@ class ReplyLikeRepositoryTest {
         ReplyLike replyLike1 = testDataFactory.createReplyLike();
         ReplyLike replyLike2 = testDataFactory.createReplyLike();
 
-        
+        ReplyLike find = replyLikeRepository.findById(replyLike1.getId()).get();
+        List<ReplyLike> findAll = replyLikeRepository.findAll();
+
+        assertThat(find).isEqualTo(replyLike1);
+        assertThat(findAll.size()).isEqualTo(2);
     }
 
     @Test
     void 답글_좋아요_삭제() {
+        ReplyLike replyLike = testDataFactory.createReplyLike();
 
+        replyLikeRepository.delete(replyLike);
+
+        assertThat(replyLikeRepository.count()).isEqualTo(0);
     }
 }
