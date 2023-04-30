@@ -20,7 +20,8 @@ public class TestDataFactory {
     @Autowired UserRepository userRepository;
 
     public User createUser() {
-        User user = new User("username", "photo", "instagram_id", "introduction");
+        UserInfo userInfo = new UserInfo("username", "photo", "instagram_id", "introduction");
+        User user = new User(userInfo);
         userRepository.save(user);
         return user;
     }

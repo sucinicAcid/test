@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import sjs.instagram.TestDataFactory;
 import sjs.instagram.domain.User;
+import sjs.instagram.domain.UserInfo;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ class UserRepositoryTest {
 
     @Test
     void 사용자_생성() {
-        User user = new User("username", "photo", "instagram_id", "introduction");
+        UserInfo userInfo = new UserInfo("username", "photo", "instagram_id", "introduction");
+        User user = new User(userInfo);
 
         User saved = userRepository.save(user);
 
@@ -43,17 +45,16 @@ class UserRepositoryTest {
     @Test
     void 사용자_수정() {
         User user = testDataFactory.createUser();
-        user.changeUsername("new username");
-        user.changePhoto("new photo");
-        user.changeInstagram_id("new instagram_id");
-        user.changeIntroduction("new introduction");
+        UserInfo userInfo = new UserInfo("new username", "new photo", "new instagram_id", "new introduction");
+        user.changeUserInfo(userInfo);
 
         User updated = userRepository.save(user);
 
-        assertThat(updated.getUsername()).isEqualTo("new username");
-        assertThat(updated.getPhoto()).isEqualTo("new photo");
-        assertThat(updated.getInstagram_id()).isEqualTo("new instagram_id");
-        assertThat(updated.getIntroduction()).isEqualTo("new introduction");
+        UserInfo updatedUserInfo = updated.getUserInfo();
+        assertThat(updatedUserInfo.getUsername()).isEqualTo("new username");
+        assertThat(updatedUserInfo.getPhoto()).isEqualTo("new photo");
+        assertThat(updatedUserInfo.getInstagram_id()).isEqualTo("new instagram_id");
+        assertThat(updatedUserInfo.getIntroduction()).isEqualTo("new introduction");
     }
 
     @Test

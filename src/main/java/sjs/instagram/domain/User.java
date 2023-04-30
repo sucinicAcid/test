@@ -18,17 +18,8 @@ public class User {
     @Column(name = "USER_ID")
     private Long id;
 
-    @Column(name = "NAME")
-    private String username;
-
-    @Column(name = "PHOTO")
-    private String photo;
-
-    @Column(name = "INSTAGRAM_ID")
-    private String instagram_id;
-
-    @Column(name = "INTRODUCTION")
-    private String introduction;
+    @Embedded
+    UserInfo userInfo;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
@@ -45,26 +36,11 @@ public class User {
     @OneToMany(mappedBy = "viewer")
     private List<StoryViewer> storyViewers = new ArrayList<>();
 
-    public User(String username, String photo, String instagram_id, String introduction) {
-        this.username = username;
-        this.photo = photo;
-        this.instagram_id = instagram_id;
-        this.introduction = introduction;
+    public User(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
-    public void changeUsername(String username) {
-        this.username = username;
-    }
-
-    public void changePhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public void changeInstagram_id(String instagram_id) {
-        this.instagram_id = instagram_id;
-    }
-
-    public void changeIntroduction(String introduction) {
-        this.introduction = introduction;
+    public void changeUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }
