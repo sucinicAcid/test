@@ -33,10 +33,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy ="fromUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy ="fromUser")
     private List<Follow> followers = new ArrayList<>();
 
-    @OneToMany(mappedBy ="toUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy ="toUser")
     private List<Follow> followings = new ArrayList<>();
 
     @OneToMany(mappedBy = "author")
