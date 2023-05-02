@@ -19,7 +19,13 @@ public class User {
     private Long id;
 
     @Embedded
-    UserInfo userInfo;
+    private UserInfo userInfo;
+
+    private String username;
+
+    private String password;
+
+    private String role;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
@@ -42,5 +48,17 @@ public class User {
 
     public void changeUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public void changeRole(String role) {
+        this.role = role;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

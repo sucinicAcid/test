@@ -51,7 +51,7 @@ class UserRepositoryTest {
         User updated = userRepository.save(user);
 
         UserInfo updatedUserInfo = updated.getUserInfo();
-        assertThat(updatedUserInfo.getUsername()).isEqualTo("new username");
+        assertThat(updatedUserInfo.getName()).isEqualTo("new username");
         assertThat(updatedUserInfo.getPhoto()).isEqualTo("new photo");
         assertThat(updatedUserInfo.getInstagram_id()).isEqualTo("new instagram_id");
         assertThat(updatedUserInfo.getIntroduction()).isEqualTo("new introduction");

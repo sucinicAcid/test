@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserInfo {
     @Column(name = "NAME")
-    private String username;
+    private String name;
 
     @Column(name = "PHOTO")
     private String photo;
