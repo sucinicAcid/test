@@ -38,7 +38,7 @@ public class UserController {
         userService.joinUser(user);
     }
 
-    @GetMapping("/userInfo")
+    @GetMapping("/user/userInfo")
     public String userInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         User user = principalDetails.getUser();
         List<Post> posts = postService.findPosts(user.getId());

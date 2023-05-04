@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/loginProc")
-                .defaultSuccessUrl("/userInfo");
+                .defaultSuccessUrl("/user/userInfo");
         return http.build();
     }
 

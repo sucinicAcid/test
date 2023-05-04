@@ -28,6 +28,6 @@ public class PostController {
     String createPost(PostForm postForm, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = principalDetails.getUser();
         postService.createPost(postForm, user.getId());
-        return "redirect:/userInfo";
+        return "redirect:/user/userInfo";
     }
 }
