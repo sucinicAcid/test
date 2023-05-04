@@ -30,4 +30,9 @@ public class PostController {
         postService.createPost(postForm, user.getId());
         return "redirect:/user/userInfo";
     }
+
+    @GetMapping("/posts/new")
+    String postForm() {
+        return "postForm";
+    }
 }

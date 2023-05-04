@@ -4,18 +4,17 @@
   <meta charset="utf-8">
   <link href="../css/bootstrap.min.css"
         th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <title>사용자 정보 페이지</title>
 </head>
 <body>
+<h1>사용자 정보 페이지</h1>
+<br>
 <h5 th:text="|인스타그램 아이디: ${user.userInfo.instagram_id}|">인스타그램 아이디</h5>
 <h5 th:text="|이름: ${user.userInfo.name}|">사용자 이름</h5>
 <h5 th:text="|사진: ${user.userInfo.photo}|">사진</h5>
 <h5 th:text="|소개글: ${user.userInfo.introduction}|">소개글</h5>
 
-<form action="/posts" method="post">
-  <input type="text" name="title" placeholder="Title"/> <br>
-  <input type="text" name="content" placeholder="Content"/> <br>
-  <button>게시물 등록</button>
-</form>
+<a href="/posts/new">게시물 등록하러 가기</a>
 
 <table>
   <tr>
