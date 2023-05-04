@@ -19,23 +19,23 @@ public class IndexController {
 
     @ResponseBody
     @GetMapping("/")
-    String index() {
+    public String index() {
         return "메인 페이지";
     }
 
     @GetMapping("/loginForm")
-    String loginForm() {
+    public String loginForm() {
         return "loginForm";
     }
 
     @GetMapping("/joinForm")
-    String joinForm() {
+    public String joinForm() {
         return "joinForm";
     }
 
     // instagram_id를 User.userInfo안에 바인딩 되는법 찾기. 지금은 임시로
     @PostMapping("/joinProc")
-    String joinProc(User user, String instagram_id) {
+    public String joinProc(User user, String instagram_id) {
         // ROLE_ 추가해야함
         user.changeRole("ROLE_USER");
         user.changeUserInfo(new UserInfo("name", "photo", instagram_id, "introduction"));

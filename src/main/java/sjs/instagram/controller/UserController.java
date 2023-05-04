@@ -26,7 +26,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
-    void makeUser() {
+    public void makeUser() {
         User user = new User(new UserInfo("name", "photo", "instagram_id", "introduction"));
 
         user.changeRole("ROLE_USER");

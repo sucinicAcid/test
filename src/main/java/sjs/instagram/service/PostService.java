@@ -30,4 +30,16 @@ public class PostService {
         User user = userRepository.findById(userId).get();
         return user.getPosts();
     }
+
+    public Post findPost(Long postId) {
+        return postRepository.findById(postId).get();
+    }
+
+    @Transactional
+    public Post updatePost(PostForm postForm, Long postId) {
+        Post post = postRepository.findById(postId).get();
+        post.changeTitle(postForm.getTitle());
+        post.changeContent(postForm.getContent());
+        return post;
+    }
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link href="../css/bootstrap.min.css"
+        th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <title>게시물 수정 페이지</title>
+</head>
+<body>
+<h1>게시물 수정 페이지</h1>
+<hr/>
+<form th:action="|/posts/${post.id}/edit|" method="post">
+  <h3>제목</h3>
+  <input type="text" name="title" th:value="${post.title}">
+  <h3>내용</h3>
+  <input type="text" name="content" th:value="${post.content}">
+  <br>
+  <button>수정</button>
+</form>
+</body>
+</html>
