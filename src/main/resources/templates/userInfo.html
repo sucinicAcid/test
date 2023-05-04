@@ -6,12 +6,28 @@
         th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
-<h5 th:text="|로그인 아이디: ${user.username}|">로그인 아이디</h5>
-<h5 th:text="|로그인 비밀번호: ${user.password}|">로그인 비밀번호</h5>
-<br>
 <h5 th:text="|인스타그램 아이디: ${user.userInfo.instagram_id}|">인스타그램 아이디</h5>
 <h5 th:text="|이름: ${user.userInfo.name}|">사용자 이름</h5>
 <h5 th:text="|사진: ${user.userInfo.photo}|">사진</h5>
 <h5 th:text="|소개글: ${user.userInfo.introduction}|">소개글</h5>
+
+<form action="/posts" method="post">
+  <input type="text" name="title" placeholder="Title"/> <br>
+  <input type="text" name="content" placeholder="Content"/> <br>
+  <button>게시물 등록</button>
+</form>
+
+<table>
+  <tr>
+    <th th:if="${#lists.size(posts)} gt 0">TITLE</th>
+    <th th:if="${#lists.size(posts)} gt 0">CONTENT</th>
+  </tr>
+  <tr th:each="post : ${posts}">
+    <td th:text="${post.title}">title</td>
+    <td th:text="${post.content}">content</td>
+  </tr>
+</table>
+
+
 </body>
 </html>

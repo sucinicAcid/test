@@ -18,9 +18,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    
-    // TODO
-    // Optional 사용해서 바꾸기
 
     public void joinUser(User user) {
         userRepository.save(user);
