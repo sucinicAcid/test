@@ -21,22 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
     private final PostService postService;
-    private final PasswordEncoder passwordEncoder;
-
-    @PostConstruct
-    public void makeUser() {
-        User user = new User(new UserInfo("name", "photo", "instagram_id", "introduction"));
-
-        user.changeRole("ROLE_USER");
-        user.setUsername("123");
-        user.setPassword("123");
-        String rawPassword = user.getPassword();
-        String encPassword = passwordEncoder.encode(rawPassword);
-        user.setPassword(encPassword);
-        userService.joinUser(user);
-    }
 
     @GetMapping("/user/userInfo")
     public String userInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {

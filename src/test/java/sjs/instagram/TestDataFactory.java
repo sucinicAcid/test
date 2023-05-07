@@ -1,11 +1,14 @@
 package sjs.instagram;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import sjs.instagram.domain.*;
 import sjs.instagram.repository.*;
 
 @Component
+@Transactional
 public class TestDataFactory {
     @Autowired CommentRepository commentRepository;
     @Autowired CommentLikeRepository commentLikeRepository;
@@ -18,10 +21,13 @@ public class TestDataFactory {
     @Autowired StoryLikeRepository storyLikeRepository;
     @Autowired StoryViewerRepository storyViewerRepository;
     @Autowired UserRepository userRepository;
+    @Autowired PasswordEncoder passwordEncoder;
 
     public User createUser() {
-        UserInfo userInfo = new UserInfo("username", "photo", "instagram_id", "introduction");
+        UserInfo userInfo = new UserInfo("name", "photo", "instagram_id", "introduction");
         User user = new User(userInfo);
+        user.setUsername("username");
+        user.setPassword(passwordEncoder.encode("password"));
         userRepository.save(user);
         return user;
     }

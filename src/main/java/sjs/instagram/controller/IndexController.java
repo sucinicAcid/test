@@ -1,6 +1,7 @@
 package sjs.instagram.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ import sjs.instagram.domain.UserInfo;
 import sjs.instagram.service.UserService;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IndexController {
 
     private final PasswordEncoder passwordEncoder;
@@ -34,6 +35,7 @@ public class IndexController {
     }
 
     // instagram_id를 User.userInfo안에 바인딩 되는법 찾기. 지금은 임시로
+    // 아마 UserForm 만들어야 할듯
     @PostMapping("/joinProc")
     public String joinProc(User user, String instagram_id) {
         // ROLE_ 추가해야함
