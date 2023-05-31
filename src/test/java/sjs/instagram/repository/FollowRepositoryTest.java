@@ -5,6 +5,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import sjs.instagram.InstagramApplication;
 import sjs.instagram.TestDataFactory;
 import sjs.instagram.domain.Follow;
 import sjs.instagram.domain.User;

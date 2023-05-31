@@ -19,7 +19,7 @@ public class UserInfo {
     private String photo;
 
     @Column(name = "INSTAGRAM_ID")
-    private String instagram_id;
+    private String instagramId;
 
     @Column(name = "INTRODUCTION")
     private String introduction;

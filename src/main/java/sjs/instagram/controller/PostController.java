@@ -25,7 +25,8 @@ public class PostController {
     public String createPost(PostForm postForm, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = principalDetails.getUser();
         postService.createPost(postForm, user.getId());
-        return "redirect:/user/userInfo";
+        //return "redirect:/user/userInfo";
+        return "redirect:/" + user.getUserInfo().getInstagramId();
     }
 
     @GetMapping("/posts/new")
@@ -36,6 +37,8 @@ public class PostController {
     @GetMapping("/posts/{postId}")
     public String postInfo(@PathVariable Long postId, Model model) {
         Post post = postService.findPost(postId);
+        String instagramId = post.getUser().getUserInfo().getInstagramId();
+        model.addAttribute("instagramId", instagramId);
         model.addAttribute("post", post);
         return "postInfo";
     }

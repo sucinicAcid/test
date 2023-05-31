@@ -7,6 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/*
+TODO
+로그아웃 접근제어 url 어케할지 고민
+ */
+
 @Configuration
 public class SecurityConfig {
 
@@ -15,14 +20,18 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeHttpRequests()
-                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
+                .requestMatchers("/").permitAll()
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/loginForm").permitAll()
+                .requestMatchers("/loginProc").permitAll()
+                .requestMatchers("/joinForm").permitAll()
+                .requestMatchers("/joinProc").permitAll()
+                .anyRequest().hasRole("USER")
                 .and()
                 .formLogin()
-                .loginPage("/loginForm")
-                .loginProcessingUrl("/loginProc")
-                .defaultSuccessUrl("/user/userInfo");
+                    .loginPage("/loginForm")
+                    .loginProcessingUrl("/loginProc")
+                    .defaultSuccessUrl("/");
         return http.build();
     }
 

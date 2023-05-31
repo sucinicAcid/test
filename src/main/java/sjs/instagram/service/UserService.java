@@ -33,6 +33,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public User findUserByInstagram_id(String instagram_id) {
+        return userRepository.findByUserInfoInstagramId(instagram_id);
+    }
+
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId).get();
         userRepository.delete(user);

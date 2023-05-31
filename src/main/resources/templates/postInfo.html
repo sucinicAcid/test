@@ -13,6 +13,6 @@
 <h3 th:text="|내용: ${post.content}|">content</h3>
 <button th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">게시물 수정하러 가기</button>
 <br>
-<button th:onclick="|location.href='@{/user/userInfo}'|">게시물 목록</button>
+<button th:onclick="|location.href='@{/{instagramId}(instagramId=${instagramId})}'|">게시물 목록</button>
 </body>
 </html>

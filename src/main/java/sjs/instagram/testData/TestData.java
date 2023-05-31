@@ -17,7 +17,7 @@ public class TestData {
 
     @PostConstruct
     public void makeUser() {
-        User user = new User(new UserInfo("name", "photo", "instagram_id", "introduction"));
+        User user = new User(new UserInfo("name", "photo", "instagramId", "introduction"));
 
         user.changeRole("ROLE_USER");
         user.setUsername("123");
