@@ -52,12 +52,12 @@ public class UserController {
             //throw new NoUserFoundException();
         }
 
-        User user = principalDetails.getUser();
-        model.addAttribute("userInfo", user.getUserInfo());
+        model.addAttribute("userInfo", findUser.getUserInfo());
         // user.getPost() 안됨. user가 영속성 컨텍스트에 존재하지 않기 때문에 user.getPost() 안됨
-        List<Post> posts = postService.findPosts(user.getId());
+        List<Post> posts = postService.findPosts(findUser.getId());
         model.addAttribute("posts", posts);
 
+        User user = principalDetails.getUser();
         if (user.getUserInfo().getInstagramId().equals(instagramId)) return "userInfo";
         else return "userElseInfo";
     }
