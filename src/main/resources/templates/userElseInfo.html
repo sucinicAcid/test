@@ -1,35 +1,34 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <link href="../css/bootstrap.min.css"
-        th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-  <title>내 프로필 정보 페이지</title>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>사용자 정보 페이지</title>
 </head>
 <body>
-<h1>내 프로필 정보 페이지</h1>
+<h1>사용자 정보 페이지</h1>
 <hr/>
+
 <h5 th:text="|인스타그램 아이디: ${userInfo.instagramId}|">인스타그램 아이디</h5>
 <h5 th:text="|이름: ${userInfo.name}|">사용자 이름</h5>
 <h5 th:text="|사진: ${userInfo.photo}|">사진</h5>
 <h5 th:text="|소개글: ${userInfo.introduction}|">소개글</h5>
-
-<button onclick="location.href='/posts/new'">게시물 등록하러 가기</button>
-
 <hr/>
+
 <button th:onclick="|location.href='@{/{instagramId}/followers(instagramId=${userInfo.instagramId})}'|">팔로우 목록</button>
 <button th:onclick="|location.href='@{/{instagramId}/followings(instagramId=${userInfo.instagramId})}'|">팔로잉 목록</button>
 
 <hr/>
 <table>
-  <tr>
-    <th th:if="${#lists.size(posts)} gt 0">TITLE</th>
-    <th th:if="${#lists.size(posts)} gt 0">CONTENT</th>
-  </tr>
-  <tr th:each="post : ${posts}">
-    <td><a th:text="${post.title}" th:href="@{|/posts/${post.id}|}">title</a></td>
-    <td th:text="${post.content}">content</td>
-  </tr>
+    <tr>
+        <th th:if="${#lists.size(posts)} gt 0">TITLE</th>
+        <th th:if="${#lists.size(posts)} gt 0">CONTENT</th>
+    </tr>
+    <tr th:each="post : ${posts}">
+        <td><a th:text="${post.title}">title</a></td>
+        <td th:text="${post.content}">content</td>
+    </tr>
 </table>
 
 

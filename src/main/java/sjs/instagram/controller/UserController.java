@@ -45,6 +45,13 @@ public class UserController {
 
     @GetMapping("/{instagramId}")
     public String userInfo(@PathVariable String instagramId, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        // 존재하는 사용자인지 판별
+        User findUser = userService.findUserByInstagramId(instagramId);
+        if (findUser == null) {
+            //TODO
+            //throw new NoUserFoundException();
+        }
+
         User user = principalDetails.getUser();
         model.addAttribute("userInfo", user.getUserInfo());
         // user.getPost() 안됨. user가 영속성 컨텍스트에 존재하지 않기 때문에 user.getPost() 안됨

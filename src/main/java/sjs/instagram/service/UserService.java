@@ -34,7 +34,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUserByInstagram_id(String instagram_id) {
+    public User findUserByInstagramId(String instagram_id) {
         return userRepository.findByUserInfoInstagramId(instagram_id);
     }
 
