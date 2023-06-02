@@ -55,8 +55,8 @@ public class UserController {
         }
 
         model.addAttribute("userInfo", findUser.getUserInfo());
-        // user.getPost() 안됨. user가 영속성 컨텍스트에 존재하지 않기 때문에 user.getPost() 안됨
-        List<Post> posts = postService.findPosts(findUser.getId());
+        //List<Post> posts = postService.findPosts(findUser.getId());
+        List<Post> posts = findUser.getPosts();
         model.addAttribute("posts", posts);
 
         User user = principalDetails.getUser();

@@ -4,14 +4,16 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import sjs.instagram.domain.Follow;
-import sjs.instagram.domain.User;
-import sjs.instagram.domain.UserInfo;
+import org.springframework.transaction.annotation.Transactional;
+import sjs.instagram.domain.*;
 import sjs.instagram.form.PostForm;
 import sjs.instagram.repository.FollowRepository;
+import sjs.instagram.service.CommentService;
 import sjs.instagram.service.FollowService;
 import sjs.instagram.service.PostService;
 import sjs.instagram.service.UserService;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class TestData {
     private final UserService userService;
     private final FollowService followService;
     private final PostService postService;
+    private final CommentService commentService;
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
@@ -56,6 +59,19 @@ public class TestData {
             postForm.setContent("내용 " + i);
             postService.createPost(postForm, user1.getId());
             postService.createPost(postForm, user2.getId());
+        }
+
+        // 빈 @PostConstruct 시점은 OSIV가 적용되는 시점이 아닌 듯
+        // @Controller에서 프록시 객체의 조회 기능이 된 이유는 OSIV이기 때문
+        // 여기선 OSIV가 안되니 프록시가 아닌 진짜 객체로만 조회해야함
+        List<Post> user1Posts = postService.findPosts(user1.getId());
+        List<Post> user2Posts = postService.findPosts(user2.getId());
+
+
+        // 댓글 생성
+        for (int i=1; i<4; i++) {
+            commentService.createComment("댓글 "+i, user1.getId(), user2Posts.get(i-1).getId());
+            commentService.createComment("댓글 "+i, user2.getId(), user1Posts.get(i-1).getId());
         }
     }
 }

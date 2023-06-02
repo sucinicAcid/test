@@ -26,13 +26,14 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<Post> findPosts(Long userId) {
-        User user = userRepository.findById(userId).get();
-        return user.getPosts();
-    }
-
     public Post findPost(Long postId) {
         return postRepository.findById(postId).get();
+    }
+
+    public List<Post> findPosts(Long userId) {
+        User user = userRepository.findById(userId).get();
+        List<Post> posts = postRepository.findPostsByUser(user);
+        return posts;
     }
 
     @Transactional

@@ -9,8 +9,27 @@
 <body>
 <h1>게시물 정보 페이지</h1>
 <hr/>
+
 <h3 th:text="|제목: ${post.title}|">title</h3>
 <h3 th:text="|내용: ${post.content}|">content</h3>
+<hr/>
+
+<h4>댓글</h4>
+<table>
+    <tr th:each="comment : ${comments}">
+        <td>
+            <a th:text="${comment.user.userInfo.instagramId}" th:href="@{|/users/${comment.user.userInfo.instagramId}|}"></a>
+            <span th:text="|: ${comment.content}|"></span>
+        </td>
+    </tr>
+</table>
+
+<form th:action="|@{/posts/{postId}/comment/new(postId=${post.id})}|" method="post">
+    <input type="text" name="content" placeholder="댓글 달기..."/> <br/>
+    <button>댓글 달기</button>
+</form>
+<hr/>
+
 <button th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">게시물 수정하러 가기</button>
 <br>
 <button th:onclick="|location.href='@{/users/{instagramId}(instagramId=${instagramId})}'|">게시물 목록</button>
