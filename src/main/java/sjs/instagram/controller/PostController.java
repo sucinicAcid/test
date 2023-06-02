@@ -30,7 +30,7 @@ public class PostController {
         User user = principalDetails.getUser();
         postService.createPost(postForm, user.getId());
         //return "redirect:/user/userInfo";
-        return "redirect:/" + user.getUserInfo().getInstagramId();
+        return "redirect:/users/" + user.getUserInfo().getInstagramId();
     }
 
     @GetMapping("/posts/new")
