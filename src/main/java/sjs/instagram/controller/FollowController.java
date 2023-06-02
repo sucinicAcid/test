@@ -20,7 +20,7 @@ public class FollowController {
     private final UserService userService;
     private final FollowService followService;
 
-    @GetMapping("/{instagramId}/followers")
+    @GetMapping("/users/{instagramId}/followers")
     public String followers(@PathVariable String instagramId, Model model) {
         User user = userService.findUserByInstagramId(instagramId);
         List<User> followers = followService.findFollowers(user.getId());
@@ -28,7 +28,7 @@ public class FollowController {
         return "followers";
     }
 
-    @GetMapping("/{instagramId}/followings")
+    @GetMapping("/users/{instagramId}/followings")
     public String followings(@PathVariable String instagramId, Model model) {
         User user = userService.findUserByInstagramId(instagramId);
         List<User> followings = followService.findFollowings(user.getId());

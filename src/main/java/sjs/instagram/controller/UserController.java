@@ -43,13 +43,15 @@ public class UserController {
     }
     */
 
-    @GetMapping("/{instagramId}")
+    @GetMapping("/users/{instagramId}")
     public String userInfo(@PathVariable String instagramId, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         // 존재하는 사용자인지 판별
         User findUser = userService.findUserByInstagramId(instagramId);
         if (findUser == null) {
             //TODO
             //throw new NoUserFoundException();
+            System.out.println("HELLO===============");
+            throw new RuntimeException();
         }
 
         model.addAttribute("userInfo", findUser.getUserInfo());

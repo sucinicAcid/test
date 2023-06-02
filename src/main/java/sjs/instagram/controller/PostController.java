@@ -21,7 +21,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/posts")
+    @PostMapping("/posts/new")
     public String createPost(PostForm postForm, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = principalDetails.getUser();
         postService.createPost(postForm, user.getId());

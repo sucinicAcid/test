@@ -16,8 +16,8 @@
 <h5 th:text="|소개글: ${userInfo.introduction}|">소개글</h5>
 <hr/>
 
-<button th:onclick="|location.href='@{/{instagramId}/followers(instagramId=${userInfo.instagramId})}'|">팔로우 목록</button>
-<button th:onclick="|location.href='@{/{instagramId}/followings(instagramId=${userInfo.instagramId})}'|">팔로잉 목록</button>
+<button th:onclick="|location.href='@{/users/{instagramId}/followers(instagramId=${userInfo.instagramId})}'|">팔로우 목록</button>
+<button th:onclick="|location.href='@{/users/{instagramId}/followings(instagramId=${userInfo.instagramId})}'|">팔로잉 목록</button>
 
 <hr/>
 <table>

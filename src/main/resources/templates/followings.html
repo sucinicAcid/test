@@ -15,7 +15,7 @@
         <th th:if="${#lists.size(followings)} gt 0">인스타 아이디</th>
     </tr>
     <tr th:each="following : ${followings}">
-        <td><a th:text="${following.userInfo.instagramId}" th:href="@{|/${following.userInfo.instagramId}|}">following</a></td>
+        <td><a th:text="${following.userInfo.instagramId}" th:href="@{|/users/${following.userInfo.instagramId}|}">following</a></td>
     </tr>
 </table>
 
