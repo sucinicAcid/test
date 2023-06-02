@@ -59,8 +59,11 @@ public class UserController {
         List<Post> posts = findUser.getPosts();
         model.addAttribute("posts", posts);
 
+        /*
         User user = principalDetails.getUser();
         if (user.getUserInfo().getInstagramId().equals(instagramId)) return "userInfo";
         else return "userElseInfo";
+        */
+        return "userInfo";
     }
 }

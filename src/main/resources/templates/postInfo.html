@@ -30,7 +30,7 @@
 </form>
 <hr/>
 
-<button th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">게시물 수정하러 가기</button>
+<button th:if="${isSame} eq true" th:onclick="|location.href='@{/posts/{postId}/edit(postId=${post.id})}'|">게시물 수정하러 가기</button>
 <br>
 <button th:onclick="|location.href='@{/users/{instagramId}(instagramId=${instagramId})}'|">게시물 목록</button>
 </body>

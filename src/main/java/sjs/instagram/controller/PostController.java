@@ -39,13 +39,16 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public String postInfo(@PathVariable Long postId, Model model) {
+    public String postInfo(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable Long postId, Model model) {
+        User user = principalDetails.getUser();
         Post post = postService.findPost(postId);
         String instagramId = post.getUser().getUserInfo().getInstagramId();
         List<Comment> comments = post.getComments();
 
-        model.addAttribute("instagramId", instagramId);
+        if (post.getUser().getId() == user.getId()) model.addAttribute("isSame", true);
+        else model.addAttribute("isSame", false);
         model.addAttribute("post", post);
+        model.addAttribute("instagramId", instagramId);
         model.addAttribute("comments", comments);
         return "postInfo";
     }
